@@ -65,8 +65,6 @@ We would like to express our gratitude to the following individuals and communit
 
 - **CaseGuru Team:** Thank you to all team members for their dedication and collaborative efforts in bringing this project to fruition.
 
-- **Open Source Community:** Our project leverages the power of open source technologies, and we extend our appreciation to the entire open source community for their valuable contributions.
-
 - **ReactJS, Tailwind CSS, Node.js, MongoDB:** Special thanks to the developers and maintainers of these powerful technologies that form the backbone of our project.
 
 - **Hostinger:** We would like to thank Hostinger for providing reliable hosting services for our project.
