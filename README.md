@@ -39,7 +39,7 @@ Following an agile development methodology, we prioritize iterative improvements
 ## Technology Stack
 
 - Front-end: React.js
-- Back-end: Node.js
+- Back-end: Node.js , Experss.js
 - Database: MongoDB
 - Payment Gateways: Razorpay
 - Hosting: Hostinger
