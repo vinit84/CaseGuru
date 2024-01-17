@@ -58,3 +58,21 @@ Following an agile development methodology, we prioritize iterative improvements
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+We would like to express our gratitude to the following individuals and communities who have contributed to the success of the CaseGuru - Ecommerce project:
+
+- **CaseGuru Team:** Thank you to all team members for their dedication and collaborative efforts in bringing this project to fruition.
+
+- **Open Source Community:** Our project leverages the power of open source technologies, and we extend our appreciation to the entire open source community for their valuable contributions.
+
+- **ReactJS, Tailwind CSS, Node.js, MongoDB:** Special thanks to the developers and maintainers of these powerful technologies that form the backbone of our project.
+
+- **Hostinger:** We would like to thank Hostinger for providing reliable hosting services for our project.
+
+- **Project Stakeholders:** Gratitude to the admins, customers, and graphic designers who played a crucial role in shaping the direction of CaseGuru.
+
+- **Users and Supporters:** Last but not least, our sincere thanks to the users and supporters of CaseGuru. Your feedback and encouragement motivate us to continuously improve our platform.
+
+Thank you all for being part of the CaseGuru journey!
