@@ -1,6 +1,6 @@
 # CaseGuru - Ecommerce Website
 
-![CaseGuru Logo](https://link-to-your-logo-image.com)
+![CaseGuru Logo](https://caseguru.co.in/wp-content/uploads/2023/06/cropped-cropped-cg-logo-300x72.png)
 
 ## Team Members
 
