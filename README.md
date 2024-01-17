@@ -1,12 +1,11 @@
-# CaseGuru - YouTube Layer
+# CaseGuru - Ecommerce Website
 
 ![CaseGuru Logo](https://link-to-your-logo-image.com)
 
 ## Team Members
 
-1. Vinit Upadhyay (Team Leader)
-2. Suganya [Last Name]
-3. Ganesh [Last Name]
+1. Vinit Upadhyay
+2. Ganesh Udhutha
 
 ## Project Overview
 
@@ -39,12 +38,12 @@ Following an agile development methodology, we prioritize iterative improvements
 
 ## Technology Stack
 
-- Front-end: HTML, CSS, JavaScript
-- Back-end: Python, PHP
-- Database: MySQL
-- Payment Gateways: Stripe, PayPal
+- Front-end: React.js
+- Back-end: Node.js
+- Database: MongoDB
+- Payment Gateways: Razorpay
 - Hosting: Hostinger
-- Framework: Bootstrap 5
+- Framework: Tailwind CSS
 
 ## Requirements
 
@@ -54,8 +53,7 @@ Following an agile development methodology, we prioritize iterative improvements
 
 ## Project Links
 
-- [GitHub Repository](https://github.com/your-username/CaseGuru)
-- [Live Demo](https://your-live-demo-url.com)
+- [GitHub Repository](https://github.com/vinit84/CaseGuru)
 
 ## License
 
