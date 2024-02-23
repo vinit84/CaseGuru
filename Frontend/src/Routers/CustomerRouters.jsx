@@ -12,6 +12,9 @@ import OrderDetails from "../customer/components/Order/OrderDetails";
 import { ThemeProvider } from "@emotion/react";
 import PaymentSuccess from "../customer/components/paymentSuccess/PaymentSuccess";
 import RateProduct from "../customer/components/ReviewProduct/RateProduct";
+import EliteBrandCollection from "../customer/components/ProductListing/Collections/EliteBrandCollection";
+import TrendingpageCollection from "../customer/components/ProductListing/Collections/Trendingpage";
+import PremiumpageCollection from "../customer/components/ProductListing/Collections/Premiumpage";
 
 
 const CustomerRouters =()=> {
@@ -38,6 +41,9 @@ const CustomerRouters =()=> {
         <Route path="/:levelOne/:levelTwo/:levelThree" element={<Shop />}></Route>
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/categories/elitebrand" element={<EliteBrandCollection/>}></Route>
+        <Route path="/trendingcollection" element={<TrendingpageCollection/>}></Route>
+        <Route path="/premiumcollection" element={<PremiumpageCollection/>}></Route>
         <Route path="/account/order" element={<Order />}></Route>
         <Route path="/account/order/:orderId" element={<OrderDetails />}></Route>
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>

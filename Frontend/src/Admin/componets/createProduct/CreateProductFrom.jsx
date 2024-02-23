@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import {
   Grid,
   TextField,
@@ -14,9 +14,7 @@ import { Fragment } from "react";
 import "./CreateProductForm.css";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../../State/Product/Action";
-
-
-
+import CancelIcon from '@mui/icons-material/Cancel';
 const initialSizes = [
   { name: "Hard Case", quantity: 0 },
   { name: "Soft Case", quantity: 0 },
@@ -24,9 +22,12 @@ const initialSizes = [
 ];
 
 const CreateProductForm = () => {
-  
   const [productData, setProductData] = useState({
     imageUrl: "",
+    // product1Url:"",
+    // product2Url:"",
+    // product3Url:"",
+    // product4Url:"",
     brand: "",
     title: "",
     discountedPrice: "",
@@ -39,8 +40,8 @@ const CreateProductForm = () => {
     thirdLevelCategory: "",
     description: "",
   });
-const dispatch=useDispatch();
-const jwt=localStorage.getItem("jwt")
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +53,7 @@ const jwt=localStorage.getItem("jwt")
 
   const handlematerialChange = (e, index) => {
     let { name, value } = e.target;
-    name==="material_quantity"?name="quantity":name=e.target.name;
+    name === "material_quantity" ? (name = "quantity") : (name = e.target.name);
 
     const materials = [...productData.material];
     materials[index][name] = value;
@@ -82,8 +83,36 @@ const jwt=localStorage.getItem("jwt")
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProduct({data:productData,jwt}))
+    dispatch(createProduct({ data: productData, jwt }));
     console.log(productData);
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setProductData((prevState) => ({
+        ...prevState,
+        imageUrl: reader.result,
+      }));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setProductData((prevState) => ({
+        ...prevState,
+        imageUrl: "",
+      }));
+    }
+  };
+
+  const handleImageRemove = () => {
+    setProductData((prevState) => ({
+      ...prevState,
+      imageUrl: "",
+    }));
   };
 
   // const handleAddProducts=(data)=>{
@@ -101,25 +130,81 @@ const jwt=localStorage.getItem("jwt")
       <Typography
         variant="h3"
         sx={{ textAlign: "center" }}
-        className="py-10 text-center "
+        className="py-10 text-center font-family['Gilroy']"
       >
         Add New Product
       </Typography>
       <form
         onSubmit={handleSubmit}
-        className="createProductContainer min-h-screen"
+        className="createProductContainer min-h-screen "
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Image URL"
-              name="imageUrl"
-              value={productData.imageUrl}
-              onChange={handleChange}
+       <div className="col-span-3 mb-5">
+  <label className="block text-sm font-medium text-gray-500">
+    Product Image
+  </label>
+  {productData.imageUrl ? (
+    <div className="mt-1 flex justify-center position-relative">
+      <img
+        src={productData.imageUrl}
+        width="200px"
+        height="200px"
+        alt="Product preview"
+        style={{ borderRadius: '10px' }}
+      />
+      <IconButton
+  style={{
+    position: 'relative', 
+    right: '42px',
+    height:'15px',
+  }} 
+  className="top-2 cursor-pointer "
+  onClick={handleImageRemove}
+>
+  <CancelIcon className="text-orange-500" />
+</IconButton>
+    </div>
+  ) : (
+    <div className="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
+      <div className="space-y-1 text-center">
+        <svg
+          className="mx-auto h-12 w-12 text-gray-400"
+          stroke="currentColor"
+          fill="none"
+          viewBox="0 0 48 48"
+          aria-hidden="true"
+        >
+          <path
+            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <div className="flex text-sm text-gray-600">
+          <label
+            htmlFor="file-upload"
+            className="relative cursor-pointer rounded-md font-medium p-1 text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-orange-500"
+          >
+            <span className="font-bold">Upload Image</span>
+            <input
+              onChange={handleImageUpload}
+              id="file-upload"
+              name="file-upload"
+              type="file"
+              className="sr-only"
             />
-          </Grid>
-        
+          </label>
+          <p className="pl-1">or drag and drop</p>
+        </div>
+        <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+      </div>
+    </div>
+  )}
+</div>
+
+
+
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -129,7 +214,7 @@ const jwt=localStorage.getItem("jwt")
               onChange={handleChange}
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -160,7 +245,7 @@ const jwt=localStorage.getItem("jwt")
               type="number"
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
@@ -231,7 +316,7 @@ const jwt=localStorage.getItem("jwt")
             />
           </Grid>
           {productData.material.map((material, index) => (
-            <Grid container item spacing={3} >
+            <Grid container item spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="material Name"
@@ -251,10 +336,10 @@ const jwt=localStorage.getItem("jwt")
                   required
                   fullWidth
                 />
-              </Grid> </Grid>
-            
+              </Grid>{" "}
+            </Grid>
           ))}
-          <Grid item xs={12} >
+          <Grid item xs={12}>
             <Button
               variant="contained"
               sx={{ p: 1.8 }}

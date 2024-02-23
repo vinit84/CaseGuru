@@ -30,6 +30,18 @@ const productSchema = new mongoose.Schema({
     imageUrl:{
         type:String,
     },
+    // product1Url:{
+    //     type:String,
+    // },
+    // product2Url:{
+    //     type:String,
+    // },
+    // product3Url:{
+    //     type:String,
+    // },
+    // product4Url:{
+    //     type:String,
+    // },
     ratings:[
     {
         type:mongoose.Schema.Types.ObjectId,

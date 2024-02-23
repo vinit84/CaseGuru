@@ -26,7 +26,7 @@ const HomePage = () => {
 
             <div className='shine-effect rounded-xl mr-[10px] ml-[10px] mb-[10px] banner-hide'>
                 <img src={process.env.PUBLIC_URL + '/assets/images/homebanner.png'} alt='' />
-            </div>
+            </div>       
             
         </div>
     )

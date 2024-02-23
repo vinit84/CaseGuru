@@ -15,11 +15,12 @@ import {
 } from "@heroicons/react/outline";
 import { Rating } from "@mui/material";
 import ProductReview from "./ProductReview";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { findProductsById } from "../../../State/Product/Action";
+import { findProducts, findProductsById } from "../../../State/Product/Action";
 import { addItemToCart } from "../../../State/Cart/Action";
 import BackdropComponent from "../BackDrop/Backdrop";
+import ShopCard from "../ProductListing/ShopCard";
 
 const productss = {
   // name: "Stickers Glass Case For All Models",
@@ -153,6 +154,7 @@ function classNames(...classes) {
 
 export default function ProductDetails() {
   const jwt = localStorage.getItem("jwt");
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState("Hard");
   const materialOptions = ["Hard", "Soft", "Glass"];
@@ -178,12 +180,53 @@ export default function ProductDetails() {
     dispatch(addItemToCart({ data, jwt }));
     navigate("/cart");
   };
-  // const [selectedImage, setSelectedImage] = useState(productss.images[0]);
+  const [selectedImage, setSelectedImage] = useState();
 
   useEffect(() => {
     const data = { productId: params.productId , jwt };
     dispatch(findProductsById(data));
   }, [params.productId]);
+
+  const decodedQueryString = decodeURIComponent(location.search);
+  const searchParams = new URLSearchParams(decodedQueryString);
+  const price = searchParams.get("price");
+  const materialValue = searchParams.get("material");
+  const discount = searchParams.get("discount");
+  const sortValue = searchParams.get("sort");
+  const pageNumber = searchParams.get("page") || 1;
+  const stock = searchParams.get("stock");
+
+  // const handleSortChange = (value) => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   searchParams.set("sort", value);
+  //   const query = searchParams.toString();
+  //   navigate({ search: `?${query}` });
+  // };
+
+  useEffect(() => {
+    const [minPrice, maxPrice] =
+      price === null ? [0, 0] : price.split("-").map(Number);
+    const data = {
+      category: params.levelThree,
+      materials: materialValue || [],
+      minPrice: minPrice || 0,
+      maxPrice: maxPrice || 10000,
+      minDiscount: discount || 0,
+      sort: sortValue || "price_low",
+      pageNumber: pageNumber,
+      pageSize: 10,
+      stock: stock,
+    };
+    dispatch(findProducts(data));
+  }, [
+    params.levelThree,
+    materialValue,
+    price,
+    discount,
+    sortValue,
+    pageNumber,
+    stock,
+  ]);
 
   return (
     <div className="bg-white">
@@ -233,27 +276,60 @@ export default function ProductDetails() {
           <div className="flex flex-col items-center mt-10">
             <div className="overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
               <img
-                src={product.product?.imageUrl}
+                src={selectedImage || product.product?.imageUrl}
                 // alt={selectedImage.alt}
                 className="w-full h-full object-center object-cover"
               />
             </div>
 
-            {/* <div className="flex flex-wrap space-x-5 justify-center mt-3">
-              {productss.images.map((item, index) => (
+            <div className="flex flex-wrap space-x-5 justify-center mt-3">
+              {/* {product.product?.map((item, index) => ( */}
                 <div
-                  key={index}
-                  className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-w-[5rem] max-h-[5rem] hover:opacity-70 cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
-                  onClick={() => setSelectedImage(item)}
+                  // key={index}
+                  className="aspect-h-20 aspect-w-20 overflow-hidden rounded-lg max-w-[50rem] max-h-[50rem] hover:opacity-70 cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                  onClick={() => setSelectedImage(products.imageSrc)}
                 >
                   <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-full object-center object-cover"
+                    src={products.imageSrc}
+                    // alt={item.alt}
+                    className="w-full h-full object-center object-cover border"
                   />
                 </div>
-              ))}
-            </div> */}
+                <div
+                  // key={index}
+                  className="aspect-h-20 aspect-w-20 overflow-hidden rounded-lg max-w-[50rem] max-h-[50rem] hover:opacity-70 cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                  onClick={() => setSelectedImage(products.imageSrc)}
+                >
+                  <img
+                    src={products.imageSrc}
+                    // alt={item.alt}
+                    className="w-full h-full object-center object-cover border"
+                  />
+                </div>
+                <div
+                  // key={index}
+                  className="aspect-h-20 aspect-w-20 overflow-hidden rounded-lg max-w-[50rem] max-h-[50rem] hover:opacity-70 cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                  onClick={() => setSelectedImage(products.imageSrc)}
+                >
+                  <img
+                    src={products.imageSrc}
+                    // alt={item.alt}
+                    className="w-full h-full object-center object-cover border"
+                  />
+                </div>
+                <div
+                  // key={index}
+                  className="aspect-h-20 aspect-w-20 overflow-hidden rounded-lg max-w-[50rem] max-h-[50rem] hover:opacity-70 cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                  onClick={() => setSelectedImage(products.imageSrc)}
+                >
+                  <img
+                    src={products.imageSrc}
+                    // alt={item.alt}
+                    className="w-full h-full object-center object-cover border"
+                  />
+                </div>
+              {/* ))} */}
+            </div>
           </div>
 
           {/* Product info */}
@@ -467,52 +543,22 @@ export default function ProductDetails() {
           <ProductReview />
         </div>
 
-        {/* <section
-          aria-labelledby="related-products-heading"
-          className="bg-white"
-        >
-          <div className="max-w-2xl mx-auto py-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h2
-              id="related-products-heading"
-              className="text-xl font-bold tracking-tight text-gray-900"
-            >
-              Customers also purchased
-            </h2>
+        
 
-            <div className="mt-6 grid grid-cols-1 related-pro gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {products.map((product) => (
-                <div key={products.id} className="group relative">
-                  <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                    <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
-                      className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between">
-                    <div>
-                      <h3 className="text-sm text-gray-700">
-                        <a href="/">
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0"
-                          />
-                          {product.name}
-                        </a>
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">
-                        {product.color}
-                      </p>
-                    </div>
-                    <p className="text-sm font-medium text-gray-900">
-                      {product.price}
-                    </p>
-                  </div>
-                </div>
+        <section
+          aria-labelledby="related-products-heading"
+          className="bg-white items-center justify-between font-family['Gilroy'] ml-10"
+        >
+          <h2 className="font-sans md-center mb-4 font-semibold tracking-tight text-3xl text-orange-600">Customer also purchased</h2>
+          <div className="w-full">
+          <div className="flex flex-wrap bg-white py-5">
+            {product.products &&
+             product.products?.content?.slice(0, 4).map((item) => (
+                <ShopCard key={item.id} product={item} />
               ))}
-            </div>
           </div>
-        </section> */}
+        </div>
+        </section>
       </main>
       <BackdropComponent open={product.loading}/>
     </div>

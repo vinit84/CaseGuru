@@ -41,7 +41,7 @@ export default function PremiumProducts() {
 
   
   const supremeProducts =
-    product.products?.content?.filter((item) => item.category.name === "supreme") ||
+    product.products?.content?.filter((item) => item.category.name === "starbucks") ||
     [];
 
   return (
@@ -52,8 +52,9 @@ export default function PremiumProducts() {
             Premium Products
           </h2>
           <a
-            href="#"
-            className="text-sm viewall-hide font-medium text-orange-600 hover:text-orange-500"
+            
+            className="text-sm viewall-hide font-medium text-orange-600 hover:text-orange-500 cursor-pointer"
+            onClick={() => navigate(`/premiumcollection`)}
           >
             View All<span aria-hidden="true"> &rarr;</span>
           </a>

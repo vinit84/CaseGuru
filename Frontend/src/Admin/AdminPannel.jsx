@@ -88,7 +88,7 @@ export default function AdminPannel() {
       <List className="font-['Gilroy'] font-semibold" >
         {/* {menu.map((item, index) => ( */}
           <ListItem className="rounded-lg " >
-            <ListItemButton className="hover:rounded-lg rounded-lg  onClick={()=>navigate(`/admin`)}" >
+            <ListItemButton className="hover:rounded-lg rounded-lg"  onClick={()=>navigate(`/admin`)} >
               {/* <ListItemIcon className="align-middle rounded-lg font-semibold"> */}
 
                 <h2  className="flex text-center hover:rounded-lg rounded-lg"> <SpaceDashboardRoundedIcon/> <span className="ml-2"> Dashboard</span></h2>

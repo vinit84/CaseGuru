@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   MenuIcon,
@@ -8,12 +8,13 @@ import {
 } from "@heroicons/react/solid";
 import QuickCart from "../Cart/QuickCart";
 import AuthModal from "../../Authentication/AuthModal";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { navigation } from "./navigationMenu";
+import { findProducts } from "../../../State/Product/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,6 +22,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { auth, cart } = useSelector((store) => store);
@@ -29,6 +31,9 @@ export default function Navigation() {
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
   const location = useLocation();
+  const param = useParams();
+  const { product } = useSelector((store) => store);
+  const searchTermRef = useRef(null);
 
   useEffect(() => {
     if (jwt) {
@@ -74,6 +79,75 @@ export default function Navigation() {
     handleCloseUserMenu();
     dispatch(logout());
   };
+
+  const decodedQueryString = decodeURIComponent(location.search);
+  const searchParams = new URLSearchParams(decodedQueryString);
+  const price = searchParams.get("price");
+  const materialValue = searchParams.get("material");
+  const discount = searchParams.get("discount");
+  const sortValue = searchParams.get("sort");
+  const pageNumber = searchParams.get("page") || 1;
+  const stock = searchParams.get("stock");
+
+  useEffect(() => {
+    const [minPrice, maxPrice] =
+      price === null ? [0, 0] : price.split("-").map(Number);
+    const data = {
+      category: param.levelThree,
+      materials: materialValue || [],
+      minPrice: minPrice || 0,
+      maxPrice: maxPrice || 10000,
+      minDiscount: discount || 0,
+      sort: sortValue || "price_low",
+      pageNumber: pageNumber,
+      pageSize: 10,
+      stock: stock,
+    };
+    dispatch(findProducts(data));
+  }, [
+    param.levelThree,
+    materialValue,
+    price,
+    discount,
+    sortValue,
+    pageNumber,
+    stock,
+  ]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const productfilter = product.products.content;
+
+  //  console.log("product filters",productfilter)
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    setShowDropdown(value !== "");
+
+    const results = productfilter.filter((products) =>
+      products.title.toLowerCase().includes(value.toLowerCase())
+    );
+    setSearchResults(results);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchTermRef.current &&
+        !searchTermRef.current.contains(event.target) &&
+        !event.target.classList.contains("dropdown-option")
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // const handleMyOrderClick=()=>{
   //   handleCloseUserMenu()
@@ -267,7 +341,7 @@ export default function Navigation() {
                       </a>
                     )}
                   </div>
-                  {/* </div> */}
+                
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -442,7 +516,7 @@ export default function Navigation() {
 
               {/* {Search} */}
 
-              <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6 search-hidden">
+              <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6 search-hidden font-['Gilroy']">
                 <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                   <div className="w-full lg:ml-20 lg:mr-10">
                     <label htmlFor="search" className="sr-only">
@@ -457,12 +531,44 @@ export default function Navigation() {
                       </div>
                       <input
                         id="search"
+                        ref={searchTermRef}
                         name="search"
                         className="block w-full bg-white border border-gray-300 rounded-xl py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                         placeholder="Search"
                         type="search"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
                       />
                     </div>
+                    {searchTerm && (
+                      <div
+                        className={`z-20 mt-2 overflow-y-auto absolute bg-white border border-gray-300 rounded-md shadow-lg max-h-60 w-[550px] ${
+                          showDropdown ? "" : "hidden"
+                        }`}
+                      >
+                        <ul className="divide-y divide-gray-200" >
+                          {searchResults.map((product) => (
+                            <li
+                              key={product.id}
+                              className="p-2 flex items-center cursor-pointer dropdown-option hover:bg-gray-100"
+                              onClick={() =>
+                                navigate(`/product/${product?._id}`)
+                              }
+                            >
+                              <img
+                                src={product.imageUrl}
+                                className="w-[60px] h-[60px] mr-2 object-cover rounded-md"
+                                alt={product.title}
+                                onClick={() =>
+                                  navigate(`/product/${product?._id}`)
+                                }
+                              />
+                              <span className="text-sm">{product.title}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -47,6 +47,9 @@ app.use("/auth",authRouters);
 const userRouters=require("./routes/userRoute.js")
 app.use("/api/users",userRouters);
 
+const userController = require("./controller/userController.js");
+app.delete("/api/users/:userId", userController.deleteUser);
+
 const productRouter = require("./routes/productRoute.js");
 app.use("/api/products",productRouter)
 

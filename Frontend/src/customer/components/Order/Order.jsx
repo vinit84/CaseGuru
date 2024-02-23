@@ -148,17 +148,17 @@ export default function Order() {
                         <div className="flex items-center sm:items-start">
                           <div   className="cursor-pointer flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden sm:w-40 sm:h-40">
                             <img
-                              src={product.product.imageUrl}
+                              src={product.product?.imageUrl}
                               alt="orderded case image"
                               className="w-full h-full object-center object-cover"
                             />
                           </div>
                           <div className="flex-1 ml-6 text-sm">
                             <div className="font-medium text-gray-900 sm:flex sm:justify-between">
-                              <h5>{product.product.title}</h5>
-                              <p className="mt-2 sm:mt-0">₹ {product.product.discountedPrice}</p>
+                              <h5>{product.product?.title}</h5>
+                              <p className="mt-2 sm:mt-0">₹ {product.product?.discountedPrice}</p>
                             </div>
-                            <p className="hidden text-gray-500 sm:block sm:mt-2">{product.product.description}</p>
+                            <p className="hidden text-gray-500 sm:block sm:mt-2">{product.product?.description}</p>
                           </div>
                         </div>
 
@@ -175,7 +175,7 @@ export default function Order() {
                               <a
                                
                                 
-                                onClick={()=>navigate(`/api/product/${product.product._id}`)}
+                                onClick={()=>navigate(`/api/product/${product.product?._id}`)}
                                 className="text-orange-600 whitespace-nowrap hover:text-orange-500"
                               >
                                 View product

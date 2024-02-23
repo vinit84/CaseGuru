@@ -69,10 +69,25 @@ const getAllUsers = async () => {
   }
 };
 
+const deleteUser = async (userId) => {
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      throw new Error("user not found with id: " + userId);
+    }
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+
+
 module.exports = {
   createUser,
   findUserById,
   getUserByEmail,
   getUserProfileByToken,
   getAllUsers,
+  deleteUser,
 };

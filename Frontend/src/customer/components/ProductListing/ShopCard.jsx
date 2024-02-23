@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import products from "./SingleProductDetails";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
+import { addItemToCart } from "../../../State/Cart/Action";
+import { useDispatch } from "react-redux";
+import { findProductsById } from "../../../State/Product/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,6 +22,10 @@ const ShopCard = ({product}) => {
   const materialOptions = ["Hard", "Soft", "Glass"];
   const [selectedBrand, setSelectedBrand] = useState("");
   const brandOptions = ["Apple", "Samsung", "Xiaomi"];
+  const { productId } = useParams();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  
 
   const modelOptions = {
     Apple: ["iPhone 12", "iPhone 11", "iPhone SE"],
@@ -33,8 +40,18 @@ const ShopCard = ({product}) => {
   };
 
   const handleAddTocart = () => {
+    const data = {productId:product?._id,material:selectedMaterial,brand:selectedBrand,model:selectedModel}
+    console.log("data _ ",data)
+    dispatch(addItemToCart({ data, jwt }));
     navigate("/cart");
   };
+
+  useEffect(() => {
+    const data = { productId:productId , jwt };
+    console.log("product id",data)
+    dispatch(findProductsById(data));
+  }, [productId]);
+
   return (
     <div className="bg-white">
       <div className="max-w-2xl sm:px-4 lg:max-w-7xl">
@@ -357,7 +374,8 @@ const ShopCard = ({product}) => {
                           <p className="absolute top-4 left-4 text-center sm:static sm:mt-8">
                             <a
                               href={selectedProduct.href}
-                              className="font-medium text-orange-600 hover:text-orange-500"
+                              onClick={() => navigate(`/product/${product?._id}`)}
+                              className="font-medium text-orange-600 hover:text-orange-500 cursor-pointer"
                             >
                               View full details
                             </a>

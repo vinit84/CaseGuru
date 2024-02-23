@@ -1,124 +1,233 @@
+
 export const navigation = {
-    categories: [
-      {
-        id: 'hardcase',
-        name: 'Hard Case',
-        featured: [
-          {
-            name: 'New Arrivals',
-            href: '/',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-            imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-          },
-          {
-            name: 'Basic Tees',
-            href: '/',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-            imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-          },
-        ],
-        sections: [
-          {
-            id: 'apple',
-            name: 'Apple',
-            items: [
-              { name: 'supreme', id:"supreme", href: `{hardcase/apple/supreme}` },
-              { name: 'Dresses', id:"women_dress", href: '#' },
-              { name: 'Women Jeans', id: 'women_jeans' },
-              { name: 'Lengha Choli', id: 'lengha_choli' },
-              { name: 'Sweaters', id: 'sweater' },
-              { name: 'T-Shirts', id: 't-shirt' },
-              { name: 'Jackets', id: 'jacket' },
-              { name: 'Gouns', id: 'gouns' },
-              { name: 'Sarees', id: 'saree' },
-              { name: 'Kurtas', id: 'kurtas' },
-            ],
-          },
-          {
-            id: 'accessories',
-            name: 'Accessories',
-            items: [
-              { name: 'Watches', id: 'watch' },
-              { name: 'Wallets', id: 'wallet' },
-              { name: 'Bags', id: 'bag' },
-              { name: 'Sunglasses', id: 'sunglasse' },
-              { name: 'Hats', id: 'hat' },
-              { name: 'Belts', id: 'belt' },
-            ],
-          },
-          {
-            id: 'brands',
-            name: 'Brands',
-            items: [
-              { name: 'Full Nelson', id: '#' },
-              { name: 'My Way', id: '#' },
-              { name: 'Re-Arranged', id: '#' },
-              { name: 'Counterfeit', id: '#' },
-              { name: 'Significant Other', id: '#' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'men',
-        name: 'Men',
-        featured: [
-          {
-            name: 'New Arrivals',
-            id: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-            imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-          },
-          {
-            name: 'Artwork Tees',
-            id: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-            imageAlt:
-              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-          },
-        ],
-        sections: [
-          {
-            id: 'clothing',
-            name: 'Clothing',
-            items: [
-              { name: 'Mens Kurtas', id: 'mens_kurta' },
-              { name: 'Shirt', id: 'shirt' },
-              { name: 'Men Jeans', id: 'men_jeans' },
-              { name: 'Sweaters', id: '#' },
-              { name: 'T-Shirts', id: 't-shirt' },
-              { name: 'Jackets', id: '#' },
-              { name: 'Activewear', id: '#' },
-              
-            ],
-          },
-          {
-            id: 'accessories',
-            name: 'Accessories',
-            items: [
-              { name: 'Watches', id: '#' },
-              { name: 'Wallets', id: '#' },
-              { name: 'Bags', id: '#' },
-              { name: 'Sunglasses', id: '#' },
-              { name: 'Hats', id: '#' },
-              { name: 'Belts', id: '#' },
-            ],
-          },
-          {
-            id: 'brands',
-            name: 'Brands',
-            items: [
-              { name: 'Re-Arranged', id: '#' },
-              { name: 'Counterfeit', id: '#' },
-              { name: 'Full Nelson', id: '#' },
-              { name: 'My Way', id: '#' },
-            ],
-          },
-        ],
-      },
-    ],
-    pages: [
-      { name: 'Company', id: '/' },
-    //   { name: 'Stores', id: '/' },
-    ],
-  }
+  categories: [
+    {
+      id: 'hardcase',
+      name: 'Hard Case',
+      featured: [
+        {
+          name: 'New Arrivals',
+          href: '/hardcase/apple/supreme',
+          imageSrc: 'https://caseguru.co.in/wp-content/uploads/2023/08/CG0035-1-1536x1536.webp',
+          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+        },
+        {
+          name: 'Basic Tees',
+          href: '/hardcase/apple/supreme',
+          imageSrc: 'https://caseguru.co.in/wp-content/uploads/2023/07/06-1536x1536.jpg',
+          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+        },
+      ],
+      sections: [
+        {
+          id: 'apple',
+          name: 'Apple Model',
+          items: [
+            { name: 'IPhone 13 Pro Max', id:"supreme", href: `{hardcase/apple/supreme}` },
+            { name: 'iPhone 13 Pro', id:"women_dress", href: '#' },
+            { name: 'iPhone 13 Mini', id: 'women_jeans' },
+            { name: 'iPhone SE (2nd Gen)', id: 'lengha_choli' },
+            { name: 'iPhone 12 Pro Max', id: 'sweater' },
+            { name: 'iPhone 12 Pro', id: 't-shirt' },
+            { name: 'iPhone 12 Max', id: 't-shirt' },
+            { name: 'iPhone SE (1st Gen)', id: 't-shirt' },
+            { name: 'iPhone 11 Pro Max', id: 't-shirt' },
+            { name: 'iPhone 11 Pro', id: 't-shirt' },
+            { name: 'iPhone 11 Mini', id: 't-shirt' },
+            { name: 'iPhone 11', id: 't-shirt' },
+
+            // { name: 'Jackets', id: 'jacket' },
+            // { name: 'Gouns', id: 'gouns' },
+            // { name: 'Sarees', id: 'saree' },
+            // { name: 'Kurtas', id: 'kurtas' },
+          ],
+        },
+        {
+          id: 'samsungphone',
+          name: 'Samsung Phone',
+          items: [
+            { name: 'Galaxy S21 Ultra', id: 'watch' },
+            { name: 'Galaxy S21 Plus', id: 'wallet' },
+            { name: 'Galaxy S21', id: 'bag' },
+            { name: 'Galaxy Note 20 Ultra', id: 'sunglasse' },
+            { name: 'Galaxy Note 20', id: 'hat' },
+            { name: 'Galaxy Z Fold 3', id: 'belt' },
+            { name: 'Galaxy Z Flip 3', id: 'belt' },
+            { name: 'Galaxy A52', id: 'belt' },
+            { name: 'Galaxy A72', id: 'belt' },
+            
+          ],
+        },
+        {
+          id: 'xiamoiphone',
+          name: 'Xiamoi Phones',
+          items: [
+            { name: 'Xiamoi Mi 11 Ultra', id: '#' },
+            { name: 'Xiamoi Mi 11 Pro', id: '#' },
+            { name: 'Xiamoi Mi 11 Lite', id: '#' },
+            { name: 'Xiamoi Redmi Note 10 Pro', id: '#' },
+            { name: 'Xiamoi Redmi Note 10', id: '#' },
+            { name: 'Xiamoi Poco X0', id: '#' },
+            { name: 'Xiamoi Mi 10T Pro', id: '#' },
+            { name: 'Xiamoi Mi 10T Lite', id: '#' },
+
+          ],
+        },
+      ],
+    },
+    {
+      id: 'softcase',
+      name: 'Soft Case',
+      featured: [
+        {
+          name: 'New Arrivals',
+          id: '#',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+        },
+        {
+          name: 'Artwork Tees',
+          id: '#',
+          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+          imageAlt:
+            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+        },
+      ],
+      sections: [
+        {
+          id: 'apple',
+          name: 'Apple Model',
+          items: [
+            { name: 'IPhone 13 Pro Max', id:"supreme", href: `{hardcase/apple/supreme}` },
+            { name: 'iPhone 13 Pro', id:"women_dress", href: '#' },
+            { name: 'iPhone 13 Mini', id: 'women_jeans' },
+            { name: 'iPhone SE (2nd Gen)', id: 'lengha_choli' },
+            { name: 'iPhone 12 Pro Max', id: 'sweater' },
+            { name: 'iPhone 12 Pro', id: 't-shirt' },
+            { name: 'iPhone 12 Max', id: 't-shirt' },
+            { name: 'iPhone SE (1st Gen)', id: 't-shirt' },
+            { name: 'iPhone 11 Pro Max', id: 't-shirt' },
+            { name: 'iPhone 11 Pro', id: 't-shirt' },
+            { name: 'iPhone 11 Mini', id: 't-shirt' },
+            { name: 'iPhone 11', id: 't-shirt' },
+
+            // { name: 'Jackets', id: 'jacket' },
+            // { name: 'Gouns', id: 'gouns' },
+            // { name: 'Sarees', id: 'saree' },
+            // { name: 'Kurtas', id: 'kurtas' },
+          ],
+        },
+        {
+          id: 'samsungphone',
+          name: 'Samsung Phone',
+          items: [
+            { name: 'Galaxy S21 Ultra', id: 'watch' },
+            { name: 'Galaxy S21 Plus', id: 'wallet' },
+            { name: 'Galaxy S21', id: 'bag' },
+            { name: 'Galaxy Note 20 Ultra', id: 'sunglasse' },
+            { name: 'Galaxy Note 20', id: 'hat' },
+            { name: 'Galaxy Z Fold 3', id: 'belt' },
+            { name: 'Galaxy Z Flip 3', id: 'belt' },
+            { name: 'Galaxy A52', id: 'belt' },
+            { name: 'Galaxy A72', id: 'belt' },
+            
+          ],
+        },
+        {
+          id: 'xiamoiphone',
+          name: 'Xiamoi Phones',
+          items: [
+            { name: 'Xiamoi Mi 11 Ultra', id: '#' },
+            { name: 'Xiamoi Mi 11 Pro', id: '#' },
+            { name: 'Xiamoi Mi 11 Lite', id: '#' },
+            { name: 'Xiamoi Redmi Note 10 Pro', id: '#' },
+            { name: 'Xiamoi Redmi Note 10', id: '#' },
+            { name: 'Xiamoi Poco X0', id: '#' },
+            { name: 'Xiamoi Mi 10T Pro', id: '#' },
+            { name: 'Xiamoi Mi 10T Lite', id: '#' },
+
+          ],
+        },
+      ],
+    },
+    {
+      id:"glasscase",
+      name:"Glass Case",
+      featured: [
+        {
+          name: 'New Arrivals',
+          href: '/hardcase/apple/supreme',
+          imageSrc: 'https://caseguru.co.in/wp-content/uploads/2023/08/CG0035-1-1536x1536.webp',
+          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+        },
+        {
+          name: 'Basic Tees',
+          href: '/hardcase/apple/supreme',
+          imageSrc: 'https://caseguru.co.in/wp-content/uploads/2023/07/06-1536x1536.jpg',
+          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+        },
+      ],
+      sections: [
+        {
+          id: 'apple',
+          name: 'Apple Model',
+          items: [
+            { name: 'IPhone 13 Pro Max', id:"supreme", href: `{hardcase/apple/supreme}` },
+            { name: 'iPhone 13 Pro', id:"women_dress", href: '#' },
+            { name: 'iPhone 13 Mini', id: 'women_jeans' },
+            { name: 'iPhone SE (2nd Gen)', id: 'lengha_choli' },
+            { name: 'iPhone 12 Pro Max', id: 'sweater' },
+            { name: 'iPhone 12 Pro', id: 't-shirt' },
+            { name: 'iPhone 12 Max', id: 't-shirt' },
+            { name: 'iPhone SE (1st Gen)', id: 't-shirt' },
+            { name: 'iPhone 11 Pro Max', id: 't-shirt' },
+            { name: 'iPhone 11 Pro', id: 't-shirt' },
+            { name: 'iPhone 11 Mini', id: 't-shirt' },
+            { name: 'iPhone 11', id: 't-shirt' },
+
+            // { name: 'Jackets', id: 'jacket' },
+            // { name: 'Gouns', id: 'gouns' },
+            // { name: 'Sarees', id: 'saree' },
+            // { name: 'Kurtas', id: 'kurtas' },
+          ],
+        },
+        {
+          id: 'samsungphone',
+          name: 'Samsung Phone',
+          items: [
+            { name: 'Galaxy S21 Ultra', id: 'watch' },
+            { name: 'Galaxy S21 Plus', id: 'wallet' },
+            { name: 'Galaxy S21', id: 'bag' },
+            { name: 'Galaxy Note 20 Ultra', id: 'sunglasse' },
+            { name: 'Galaxy Note 20', id: 'hat' },
+            { name: 'Galaxy Z Fold 3', id: 'belt' },
+            { name: 'Galaxy Z Flip 3', id: 'belt' },
+            { name: 'Galaxy A52', id: 'belt' },
+            { name: 'Galaxy A72', id: 'belt' },
+            
+          ],
+        },
+        {
+          id: 'xiamoiphone',
+          name: 'Xiamoi Phones',
+          items: [
+            { name: 'Xiamoi Mi 11 Ultra', id: '#' },
+            { name: 'Xiamoi Mi 11 Pro', id: '#' },
+            { name: 'Xiamoi Mi 11 Lite', id: '#' },
+            { name: 'Xiamoi Redmi Note 10 Pro', id: '#' },
+            { name: 'Xiamoi Redmi Note 10', id: '#' },
+            { name: 'Xiamoi Poco X0', id: '#' },
+            { name: 'Xiamoi Mi 10T Pro', id: '#' },
+            { name: 'Xiamoi Mi 10T Lite', id: '#' },
+
+          ],
+        },
+      ],
+    },
+  ],
+  pages: [
+    {id: '/' 
+  }, ],
+  //   { name: 'Stores', id: '/' },
+ 
+}

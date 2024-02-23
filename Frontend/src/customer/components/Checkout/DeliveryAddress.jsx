@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState , useRef } from "react";
 import { Grid } from "@mui/material";
-import {AddressCard} from "../AddressCard/AddressCard"
+import { AddressCard } from "../AddressCard/AddressCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../../State/Order/Action";
@@ -16,17 +16,23 @@ export default function DeliveryAddress() {
 
   // console.log("auth", auth);
 
+  // const firstnameRef = useRef(null);
+  // const lastnameRef = useRef(null);
+  // const emailRef = useRef(null);
+  // const mobileRef = useRef(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    
     // eslint-disable-next-line no-console
-
+    if(isValideMail && isValidlastName && isValidfirstName && isValidzipCode && isValidMobileNumber){
+      const data = new FormData(event.currentTarget);
     const address = {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       streetAddress: data.get("streetAddress"),
       city: data.get("city"),
-      country : data.get("country"),
+      country: data.get("country"),
       state: data.get("state"),
       zipCode: data.get("zipCode"),
       mobile: data.get("phoneNumber"),
@@ -34,13 +40,168 @@ export default function DeliveryAddress() {
 
     dispatch(createOrder({ address, jwt, navigate }));
     // after perfoming all the opration
-  
+  }
+  else{
+    window.alert("Fill all the details properly")
+  }
   };
 
-  const handleCreateOrder = (item) => {
-    dispatch(createOrder({ address:item, jwt, navigate }));
   
+
+  const handleCreateOrder = (item) => {
+    dispatch(createOrder({ address: item, jwt, navigate }));
   };
+
+  const states = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+  ];
+
+  const cities = {
+    'Andhra Pradesh': ['Hyderabad', 'Visakhapatnam', 'Vijayawada'],
+'Arunachal Pradesh': ['Itanagar', 'Naharlagun', 'Tawang'],
+'Assam': ['Guwahati', 'Dibrugarh', 'Silchar'],
+'Bihar': ['Patna', 'Gaya', 'Muzaffarpur'],
+'Chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur'],
+'Goa': ['Panaji', 'Margao', 'Vasco da Gama'],
+'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara'],
+'Haryana': ['Faridabad', 'Gurgaon', 'Hisar'],
+'Himachal Pradesh': ['Shimla', 'Manali', 'Dharamshala'],
+'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad'],
+'Karnataka': ['Bangalore', 'Mysore', 'Hubli'],
+'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode'],
+'Madhya Pradesh': ['Bhopal', 'Indore', 'Jabalpur'],
+'Maharashtra': ['Mumbai', 'Pune', 'Nagpur'],
+'Manipur': ['Imphal', 'Thoubal', 'Bishnupur'],
+'Meghalaya': ['Shillong', 'Tura', 'Jowai'],
+'Mizoram': ['Aizawl', 'Lunglei', 'Saiha'],
+'Nagaland': ['Kohima', 'Dimapur', 'Mokokchung'],
+'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela'],
+'Punjab': ['Amritsar', 'Ludhiana', 'Jalandhar'],
+'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur'],
+'Sikkim': ['Gangtok', 'Namchi', 'Mangan'],
+'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai'],
+'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad'],
+'Tripura': ['Agartala', 'Udaipur', 'Dharmanagar'],
+'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Agra'],
+'Uttarakhand': ['Dehradun', 'Haridwar', 'Rishikesh'],
+'West Bengal': ['Kolkata', 'Howrah', 'Asansol'],
+  };
+
+  const [selectedState, setSelectedState] = useState("Andhra Pradesh");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleStateChange = (e) => {
+    const state = e.target.value;
+    setSelectedState(state);
+    setSelectedCity("");
+  };
+
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+  };
+
+  // validation
+
+    const [mobileNumber, setMobileNumber] = useState('');
+    const [isValidMobileNumber, setIsValidMobileNumber] = useState(true);
+  
+    const handleMobileNumberChange = (e) => {
+      const inputValue = e.target.value;
+      const regex = /^[0-9]{10}$/; // Assuming a 10-digit mobile number
+  
+      if (regex.test(inputValue)) {
+        setIsValidMobileNumber(true);
+      } else {
+        setIsValidMobileNumber(false);
+      }
+  
+      setMobileNumber(inputValue);
+    };
+    const [isValidzipCode, setIsValidzipCode] = useState(true);
+  
+    const [zipCode, setzipCode] = useState('');
+    const handlezipCodeChange = (e) => {
+      const inputValue = e.target.value;
+      const regex = /^[0-9]{6}$/; // Assuming a 10-digit mobile number
+  
+      if (regex.test(inputValue)) {
+        setIsValidzipCode(true);
+      } else {
+        setIsValidzipCode(false);
+      }
+  
+      setzipCode(inputValue);
+    };
+    const [isValidfirstName, setIsValidfirstName] = useState(true);
+    const [firstName, setfirstName] = useState('');
+    const handlefirstNameChange = (e) => {
+      const inputValue = e.target.value;
+      const regex = /^[A-Za-z\s]+$/; // Assuming a 10-digit mobile number
+  
+      if (regex.test(inputValue)) {
+        setIsValidfirstName(true);
+      } else {
+        setIsValidfirstName(false);
+      }
+  
+      setfirstName(inputValue);
+    };
+    const [isValidlastName, setIsValidlastName] = useState(true);
+    const [lastName, setlastName] = useState('');
+    const handlelastNameChange = (e) => {
+      const inputValue = e.target.value;
+      const regex = /^[A-Za-z\s]+$/; // Assuming a 10-digit mobile number
+  
+      if (regex.test(inputValue)) {
+        setIsValidlastName(true);
+      } else {
+        setIsValidlastName(false);
+      }
+  
+      setlastName(inputValue);
+    };
+    const [isValideMail, setIsValideMail] = useState(true);
+    const [eMail, seteMail] = useState('');
+    const handleeMailChange = (e) => {
+      const inputValue = e.target.value;
+      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i; // Assuming a 10-digit mobile number
+  
+      if (regex.test(inputValue)) {
+        setIsValideMail(true);
+      } else {
+        setIsValideMail(false);
+      }
+  
+      seteMail(inputValue);
+    };
+
 
 
   return (
@@ -71,7 +232,7 @@ export default function DeliveryAddress() {
 
         <Grid ml-4>
           <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9 font-medium font-['Gilroy']">
-            <form action="#" method="POST" onSubmit={handleSubmit} >
+            <form action="#" method="POST" onSubmit={handleSubmit}>
               <div className="shadow-xl  sm:rounded-md sm:overflow-hidden">
                 <div className="bg-white rounded-lg py-6 px-4 space-y-6 sm:p-6">
                   <div>
@@ -92,13 +253,17 @@ export default function DeliveryAddress() {
                         First name
                       </label>
                       <input
-                       required
+                        required
                         type="text"
                         name="firstName"
                         id="firstName"
+                        // ref={firstnameRef}
+                        value={firstName}
+        onChange={handlefirstNameChange}
                         autoComplete="given-name"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                       />
+                      {!isValidfirstName && <p style={{ color: 'red' }}>Invalid First Name.</p>}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -109,13 +274,17 @@ export default function DeliveryAddress() {
                         Last name
                       </label>
                       <input
-                       required
+                        required
                         type="text"
                         name="lastName"
                         id="lastName"
+                        // ref={lastnameRef}
+                        value={lastName}
+        onChange={handlelastNameChange}
                         autoComplete="family-name"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                       />
+                      {!isValidlastName && <p style={{ color: 'red' }}>Invalid Last Name.</p>}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -126,13 +295,16 @@ export default function DeliveryAddress() {
                         Email address
                       </label>
                       <input
-                       required
+                        required
                         type="text"
                         name="email"
                         id="email"
+                        value={eMail}
+        onChange={handleeMailChange}
                         autoComplete="email"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                       />
+                      {!isValideMail && <p style={{ color: 'red' }}>Invalid E-mail address.</p>}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -143,13 +315,16 @@ export default function DeliveryAddress() {
                         Phone no.
                       </label>
                       <input
-                      required
+                        required
                         type="text"
                         name="phoneNumber"
                         id="phoneNumber"
+                        value={mobileNumber}
+                        onChange={handleMobileNumberChange}
                         autoComplete="phoneNumber"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                       />
+                      {!isValidMobileNumber && <p style={{ color: 'red' }}>Invalid mobile number.</p>}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -160,7 +335,7 @@ export default function DeliveryAddress() {
                         Country
                       </label>
                       <select
-                       required
+                        required
                         id="country"
                         name="country"
                         autoComplete="country-name"
@@ -169,6 +344,7 @@ export default function DeliveryAddress() {
                         <option>United States</option>
                         <option>Canada</option>
                         <option>Mexico</option>
+                        <option selected>India</option>
                       </select>
                     </div>
 
@@ -180,7 +356,8 @@ export default function DeliveryAddress() {
                         Street address
                       </label>
                       <input
-                       required
+                      required
+                       
                         type="text"
                         name="streetAddress"
                         id="streetAddress"
@@ -196,14 +373,30 @@ export default function DeliveryAddress() {
                       >
                         City
                       </label>
-                      <input
-                       required
+                      <select
+                      required
+                        onChange={handleCityChange}
+                        value={selectedCity}
+                        name="city"
+                        id="city"
+                        autoComplete="address-level2"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                      >
+                        <option value="">Select a city</option>
+                        {cities[selectedState].map((city, index) => (
+                          <option key={index} value={city}>
+                            {city}
+                          </option>
+                        ))}
+                      </select>
+                      {/* <input
+                        required
                         type="text"
                         name="city"
                         id="city"
                         autoComplete="address-level2"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                      />
+                      /> */}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -213,14 +406,30 @@ export default function DeliveryAddress() {
                       >
                         State / Province
                       </label>
-                      <input
-                       required
+                      <select
+                        value={selectedState}
+                        onChange={handleStateChange}
+                        name="state"
+                        id="state"
+                        autoComplete="address-level1"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                        required
+                      >
+                        <option value="">Select a state</option>
+                        {states.map((state, index) => (
+                          <option key={index} value={state}>
+                            {state}
+                          </option>
+                        ))}
+                      </select>
+                      {/* <input
+                        required
                         type="text"
                         name="state"
                         id="state"
                         autoComplete="address-level1"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                      />
+                      /> */}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -231,21 +440,22 @@ export default function DeliveryAddress() {
                         ZIP / Postal code
                       </label>
                       <input
-                       required
-                        type="number"
+                        required
+                        type="text"
                         name="zipCode"
                         id="zipCode"
+                        value={zipCode}
+        onChange={handlezipCodeChange}
                         autoComplete="postal-code"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                       />
+                      {!isValidzipCode && <p style={{ color: 'red' }}>Invalid Zip Code.</p>}
                     </div>
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
                     type="submit"
-                  
-                  
                     className="font-semibold hover:bg-orange-600 bg-[#FF5612] font-['Gilroy'] border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                   >
                     Submit
@@ -254,13 +464,12 @@ export default function DeliveryAddress() {
               </div>
             </form>
           </div>
-          <BackdropComponent open={auth.loading}/>
+          <BackdropComponent open={auth.loading} />
         </Grid>
       </Grid>
     </div>
   );
 }
-
 
 // import * as React from "react";
 // import { Grid, TextField, Button, Box } from "@mui/material";
