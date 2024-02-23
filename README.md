@@ -1,6 +1,6 @@
 # CaseGuru - Ecommerce Website
 
-![CaseGuru Logo](http://makeurcase.in/wp-content/uploads/2022/08/logo.png)
+![CaseGuru Logo]()
 
 ## Team Members
 
