@@ -1,6 +1,6 @@
 # CaseGuru - Ecommerce Website
 
-![CaseGuru Logo]()
+![CaseGuru Logo]("https://caseguru.live/assets/images/logo.svg")
 
 ## Team Members
 
